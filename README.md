@@ -1,0 +1,2 @@
+# admhosptrade
+Sistema Administrativo Hosptrade
