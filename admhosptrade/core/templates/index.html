@@ -25,7 +25,7 @@
 
     <title>HOSPTRADE</title>
 
-    <link rel="shortcut icon" type="image/png" href="https://alterdata.com.br/templates/yoo_master2/favicon.ico"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/hosptrade.ico' %}"/>
 <!--    <link rel="shortcut icon" type="image/png" href="{% static 'img/icon_alterdata.png' %}"/>-->
 </head>
 
@@ -75,7 +75,8 @@
             <nav class="#fafafa grey lighten-5 col s12 m6">
                 <div class="nav-wrapper">
                     <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large black-text darken-4"><i class="material-icons">menu</i></a>
-                    <img src="{% static 'img/hosptrade-logo-web-original-2.png' %}" alt="" class="img-logo"/>
+<!--                    Esta imagem abaixo ideal é png-->
+                    <img src="{% static 'img/logo-hosptrade.png' %}" alt="" class="img-logo"/>
         <!--        <a href="" class="brand-logo">Alterdata Filiais</a>-->
                     <ul class="right hide-on-med-and-down ">
                         <li><a class="dropdown-trigger black-text darken-4" href="#!" data-target="drp_clientes">Clientes<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -113,7 +114,7 @@
 
                 <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                    <li class="bold active"><a class="collapsible-header" tabindex="0">CLIENTE</a>
+                    <li class="bold active"><a class="collapsible-header" tabindex="0">CADASTROS</a>
                       <div class="collapsible-body" style="display: block;">
                         <ul>
                           <li><a class="black-text darken-4" href="{% url 'person_create' %}"><i class="material-icons">person</i>Novo Cliente</a></li>
@@ -121,18 +122,23 @@
                         </ul>
                       </div>
                     </li>
-                    <li class="bold"><a class="collapsible-header" tabindex="0">PESQUISAS</a>
+                    <li class="bold"><a class="collapsible-header" tabindex="0">USUARIO</a>
                       <div class="collapsible-body">
                         <ul>
-                          <li><a class="black-text darken-4" href="/"><i class="material-icons">question_answer</i>Cadastrar nova Pergunta</a></li>
-                          <li><a class="black-text darken-4" href="/"><i class="material-icons">question_answer</i>Lista de Perguntas</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a class="black-text darken-4" href="{% url 'accounts:logout' %}"><i class="material-icons">lock_outline</i>Logout</a></li>
+                            <li><a class="black-text darken-4" href="{% url 'accounts:password_change' %}"><i class="material-icons">lock</i>Alterar Senha</a></li>
+                        {% else %}
+                            <li><a class="black-text darken-4" href="{% url 'accounts:register' %}"><i class="material-icons">account_circle</i>Cadastre-se</a></li>
+                            <li><a class="black-text darken-4" href="{% url 'accounts:login' %}"><i class="material-icons">lock_open</i>Login</a></li>
+                        {% endif %}
                         </ul>
                       </div>
                     </li>
-                    <li class="bold"><a class="collapsible-header" tabindex="0">ANALISTAS</a>
+                    <li class="bold"><a class="collapsible-header" tabindex="0">PEDIDOS</a>
                       <div class="collapsible-body">
                         <ul>
-                          <li><a class="black-text darken-4" href="/"><i class="material-icons">date_range</i>Cadastro Ficha</a></li>
+                          <li><a class="black-text darken-4" href="/"><i class="material-icons">date_range</i>Novo Pedido</a></li>
                           <li><a class="black-text darken-4" href="#!">Em breve...</a></li>
                         </ul>
                       </div>
@@ -178,7 +184,7 @@
     <!-- FOOTER -->
     <!-- style="position:fixed;bottom:0;left:0;width:100%;" -->
     <footer class="section #fafafa grey lighten-5 black-text center">
-        <p>Alterdata Copyright &copy; 2018</p>
+        <p>Hosptrade Copyright &copy; 2018</p>
     </footer>
 {% endblock footer %}
 
