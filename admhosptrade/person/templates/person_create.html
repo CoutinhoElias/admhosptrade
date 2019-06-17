@@ -6,43 +6,68 @@
 {% block container %}
 
     <div class="card larger" id="card-radius">
-        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
             <div class="card-content">
-                {% form form=form %}
+                {% form %}
                     {% part form.name prefix %}<i class="material-icons prefix">person</i>{% endpart %}
                     {% part form.phone prefix %}<i class="material-icons prefix">phone</i>{% endpart %}
                     {% part form.email prefix %}<i class="material-icons prefix">contact_mail</i>{% endpart %}
                 {% endform %}
             </div>
 
+        <div class="card-content">
+            <table class="highlight">
+                <thead class="#cfd8dc blue-grey lighten-4">
+                <tr>
+                    <th class="left-align">Tipo</th>
+                    <th class="left-align">Texto Tipo</th>
+                    <th class="right-align">WhatsApp?</th>
+                    <th class="left-align">Nome</th>
+                    <th class="left-align">Sobrenome</th>
+                    <th class="left-align">Apelido</th>
+
+                    <th></th>
+                </tr>
+
+                </thead>
+
+                {{ formset.management_form }}
+
+                <tbody>
+                    {% for item_form in formset %}
+
+                        <tr>
+
+                            <td>{{ item_form.kind.errors }} {{ item_form.kind }}</td>
+                            <td>{{ item_form.kind_text.errors }} {{ item_form.kind_text }}</td>
+
+                            <td class="right-align">
+                               <div class="switch">
+                                   <label>
+                                       {{ item_form.whatsapp.errors }}
+                                       {{item_form.whatsapp}}
+                                    <span class="lever"></span>
+                                   </label>
+                               </div>
+                            </td>
+                            <td>{{ item_form.name.errors }} {{ item_form.name }}</td>
+                            <td>{{ item_form.last_name.errors }} {{ item_form.last_name }}</td>
+                            <td>{{ item_form.alias.errors }} {{ item_form.alias }}</td>
+                            <td>{{ item_form.id.errors }} {{ item_form.id }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <br><br>
+
             <div class="card-action">
                 <div class="right-align">
                     <button class="waves-effect waves-light btn" type="submit">Registrar</button>
                 </div>
             </div>
-        </form>
+    </form>
     </div>
-
 {% endblock %}
-
-<!--{% load material_form %}-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--    {% include 'material/includes/material_css.html' %}-->
-<!--</head>-->
-<!--<body>-->
-<!--    <form method="POST">-->
-<!--        {% csrf_token %}-->
-<!--        {% form form=form %}-->
-<!--            {% part form.phone prefix %}<i class="material-icons prefix">phone</i>{% endpart %}-->
-<!--            {% part form.email prefix %}<i class="material-icons prefix">contact_mail</i>{% endpart %}-->
-<!--        {% endform %}-->
-<!--        <button type="submit" name="_submit" class="btn">Submit</button>-->
-<!--    </form>-->
-<!--</body>-->
-<!--{% include 'material/includes/material_js.html' %}-->
-<!--</html>-->
